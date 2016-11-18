@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>StockAnalyzer</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="bundle.js"></script>
+    <script src="http://localhost:8080/livereload.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <header class="header">
+      <h1>Stock Analyzer</h1>
+      <nav>
+        <a href="/#/fb"><button id="fb-btn" class="ticker-btn" data-ticker="fb">Facebook</button></a>
+        <a href="/#/amzn"><button id="amzn-btn" class="ticker-btn" data-ticker="amzn">Amazon</button></a>
+      </nav>
+    </header>
+    <div class="main">
+      <div class="banner price-banner">
+        <h2>
+          PRICE
+        </h2>
+      </div>
+      <div class="section price-section">
+        <div class="graph-frame price-histroy-wrapper">
+          <h3>Price History</h3>
+          <div class="price-histroy"></div>
+          <ul>
+            <button class="price-history-option" data-dateCount="5">5 Days</button>
+            <button class="price-history-option" data-dateCount="20">20 Days</button>
+            <button class="price-history-option" data-dateCount="50">50 Days</button>
+            <button class="price-history-option" data-dateCount="365">Year Over Year</button>
+          </ul>
+        </div>
+      </div>
+      <div class="banner fundamentals-banner">
+        <h2>
+          FUNDAMENTALS
+        </h2>
+      </div>
+      <div class="section fundamentals-section">
+        <div class="graph-frame sales-wrapper">
+          <h3>Sales</h3>
+          <div class="sales"></div>
+          <ul>
+            <button class="sales-option-year">By Year</button>
+            <button class="sales-option-quarter">By Quarter</button>
+          </ul>
+        </div>
+        <div class="graph-frame grossprofit-wrapper">
+          <h3>Gross Profit</h3>
+          <div class="grossprofit"></div>
+          <ul>
+            <button class="grossprofit-option-year">By Year</button>
+            <button class="grossprofit-option-quarter">By Quarter</button>
+          </ul>
+        </div>
+        <div class="graph-frame profitmargin-wrapper">
+          <h3>Gross Profit Margin</h3>
+          <div class="profitmargin"></div>
+          <ul>
+            <button class="profitmargin-option-year">By Year</button>
+            <button class="profitmargin-option-quarter">By Quarter</button>
+          </ul>
+        </div>
+        <div class="graph-frame ebitda-wrapper">
+          <h3>EBITDA</h3>
+          <div class="ebitda"></div>
+          <ul>
+            <button class="ebitda-option-year">By Year</button>
+            <button class="ebitda-option-quarter">By Quarter</button>
+          </ul>
+        </div>
+        <div class="graph-frame netincome-wrapper">
+          <h3>Net Income</h3>
+          <div class="netincome"></div>
+          <ul>
+            <button class="netincome-option-year">By Year</button>
+            <button class="netincome-option-quarter">By Quarter</button>
+          </ul>
+        </div>
+        <div class="graph-frame eps-wrapper">
+          <h3>EPS</h3>
+          <div class="eps"></div>
+          <ul>
+            <button class="eps-option-year">By Year</button>
+            <button class="eps-option-quarter">By Quarter</button>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <footer><p>Disclaimer: All stock data is not for investment or trading purposes.</p></footer>
+  </body>
+  <script>
+  </script>
+</html>

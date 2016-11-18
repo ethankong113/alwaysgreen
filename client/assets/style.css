@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+button {
+  background-color: #20CE99;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+button:focus {
+  outline: none;
+}
+button:hover {
+  cursor: pointer;
+  background-color: green;
+}
+h1 {
+  font-size: inherit;
+}
+.header h1 {
+  background-color: white;
+  color: #20CE99;
+  text-align: center;
+  font-size: 32px;
+}
+.header nav {
+  display: flex;
+  justify-content: space-around;
+}
+.header nav .ticker-btn {
+  border: none;
+  font-size: 24px;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.banner {
+  background-color: #20CE99;
+  color: white;
+  text-align: center;
+}
+.banner h2 {
+  padding: 20px 0px;
+  font-size: 28px;
+}
+.section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.section .graph-frame {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.section .graph-frame ul {
+  display: flex;
+  justify-content: center;
+}
+.section .graph-frame ul button {
+  margin: 0px 10px;
+}
+.price-section .price-history-option {
+  font-size: 18px;
+  padding: 5px 10px;
+}
