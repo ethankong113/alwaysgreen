@@ -1,6 +1,6 @@
 var fs = require('fs');
 var path = require('path');
-var { merge } = require('lodash');
+var _ = require('lodash');
 
 function readCSV(ticker, callback) {
   var pathQ = path.join(__dirname, `../data/${ticker}/dataByQ.csv`);
@@ -38,7 +38,7 @@ function readCSV(ticker, callback) {
         }
 
       });
-      callback(merge({}, output, output2));
+      callback(_.merge({}, output, output2));
     });
   }));
 }
