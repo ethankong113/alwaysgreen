@@ -3,6 +3,7 @@ var path = require('path');
 var _ = require('lodash');
 
 function readCSV(ticker, callback) {
+  var ticker = ticker.toLowerCase();
   var pathQ = path.join(__dirname, `../data/${ticker}/dataByQ.csv`);
   var pathY = path.join(__dirname, `../data/${ticker}/dataByY.csv`);
   return (fs.readFile(pathQ, 'utf8', (err, data) => {
