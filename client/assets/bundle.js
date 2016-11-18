@@ -92,7 +92,7 @@
 	  var timeframes = ["year", "quarter"];
 	  Store.update("ticker", "FB");
 	  Store.update("company", "Facebook");
-	  // fetchPriceHistory('FB', drawPriceHistory(20), errorCB);
+	  (0, _api.fetchPriceHistory)('FB', drawPriceHistory(20), errorCB);
 	  // fetchFundamentals('FB', (data)=>{
 	  //   drawFundamentals('Q', ()=>{MasterReducer(Store);})(data);
 	  //   $('.sales-text').text(salesText(Store.read("company"), Store.read("ticker"), Store.read("salesByQ"), Store.read("salesByY")));
