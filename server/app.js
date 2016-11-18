@@ -5,7 +5,7 @@ var app = express();
 var fs = require('fs');
 var readCSV = require('./spider.js');
 
-var post = process.env.PORT || 8008;
+var port = process.env.PORT || 8008;
 
 app.use(express.static(path.join(__dirname, '../client/assets')));
 
