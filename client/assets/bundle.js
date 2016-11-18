@@ -92,18 +92,16 @@
 	  var timeframes = ["year", "quarter"];
 	  Store.update("ticker", "FB");
 	  Store.update("company", "Facebook");
-	  (0, _api.fetchPriceHistory)('FB', drawPriceHistory(20), errorCB);
-	  (0, _api.fetchFundamentals)('FB', function (data) {
-	    drawFundamentals('Q', function () {
-	      (0, _master_reducer2.default)(Store);
-	    })(data);
-	    (0, _jquery2.default)('.sales-text').text((0, _text_block.salesText)(Store.read("company"), Store.read("ticker"), Store.read("salesByQ"), Store.read("salesByY")));
-	    (0, _jquery2.default)('.grossprofit-text').text((0, _text_block.grossprofitText)(Store.read("company"), Store.read("ticker"), Store.read("grossprofitByQ"), Store.read("grossprofitByY")));
-	    (0, _jquery2.default)('.profitmargin-text').text((0, _text_block.profitmarginText)(Store.read("company"), Store.read("ticker"), Store.read("profitmarginByQ"), Store.read("profitmarginByY")));
-	    (0, _jquery2.default)('.netincome-text').text((0, _text_block.netincomeText)(Store.read("company"), Store.read("ticker"), Store.read("netincomeByQ"), Store.read("netincomeByY")));
-	    (0, _jquery2.default)('.ebitda-text').text((0, _text_block.ebitdaText)(Store.read("company"), Store.read("ticker"), Store.read("ebitdaByQ"), Store.read("ebitdaByY")));
-	    (0, _jquery2.default)('.eps-text').text((0, _text_block.epsText)(Store.read("company"), Store.read("ticker"), Store.read("epsByQ"), Store.read("epsByY")));
-	  }, errorCB);
+	  // fetchPriceHistory('FB', drawPriceHistory(20), errorCB);
+	  // fetchFundamentals('FB', (data)=>{
+	  //   drawFundamentals('Q', ()=>{MasterReducer(Store);})(data);
+	  //   $('.sales-text').text(salesText(Store.read("company"), Store.read("ticker"), Store.read("salesByQ"), Store.read("salesByY")));
+	  //   $('.grossprofit-text').text(grossprofitText(Store.read("company"), Store.read("ticker"), Store.read("grossprofitByQ"), Store.read("grossprofitByY")));
+	  //   $('.profitmargin-text').text(profitmarginText(Store.read("company"), Store.read("ticker"), Store.read("profitmarginByQ"), Store.read("profitmarginByY")));
+	  //   $('.netincome-text').text(netincomeText(Store.read("company"), Store.read("ticker"), Store.read("netincomeByQ"), Store.read("netincomeByY")));
+	  //   $('.ebitda-text').text(ebitdaText(Store.read("company"), Store.read("ticker"), Store.read("ebitdaByQ"), Store.read("ebitdaByY")));
+	  //   $('.eps-text').text(epsText(Store.read("company"), Store.read("ticker"), Store.read("epsByQ"), Store.read("epsByY")));
+	  // }, errorCB);
 	
 	  (0, _jquery2.default)('.ticker-btn').click(function (e) {
 	    var ticker = (0, _jquery2.default)(e.target).data('ticker');
