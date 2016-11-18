@@ -5,6 +5,8 @@ var app = express();
 var fs = require('fs');
 var readCSV = require('./spider.js');
 
+var post = process.env.PORT || 8008;
+
 app.use(express.static(path.join(__dirname, '../client/assets')));
 
 app.get('/', (req, res)=> {
@@ -32,6 +34,6 @@ app.get('/:ticker/fundamentals', (req, res) => {
   readCSV(ticker, (data) => {res.json(data);});
 });
 
-app.listen(8008, ()=>{
+app.listen(port, ()=>{
   console.log("Listening.");
 });
