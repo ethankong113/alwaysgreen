@@ -21,11 +21,7 @@ function readCSV(ticker, callback) {
         output[values[0]].push({date: dates[i], value: parseFloat(values[i])});
       }
     });
-    console.log(data);
-    console.log("----------");
     fs.readFile(pathY, 'utf8', (err2, data2) => {
-      console.log(pathY);
-      console.log(data2);
       let lines2 = data2.split("\n");
       lines2 = lines2.slice(0,lines2.length-1);
       let dates2 = lines2[0].split(',').map((date) => {

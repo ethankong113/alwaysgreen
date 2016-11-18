@@ -11,10 +11,16 @@
   </head>
   <body>
     <header class="header">
-      <h1>Stock Analyzer</h1>
+      <div>
+        <h1>Stock Analyzer</h1>
+        <button class="about-btn">?</button>
+      </div>
       <nav>
         <a href="/#/fb"><button id="fb-btn" class="ticker-btn" data-ticker="fb">Facebook</button></a>
         <a href="/#/amzn"><button id="amzn-btn" class="ticker-btn" data-ticker="amzn">Amazon</button></a>
+        <a href="/#/nflx"><button id="nflx-btn" class="ticker-btn" data-ticker="nflx">Netflix</button></a>
+        <a href="/#/googl"><button id="googl-btn" class="ticker-btn" data-ticker="googl">Alphabet</button></a>
+        <a href="/#/ibm"><button id="ibm-btn" class="ticker-btn" data-ticker="ibm">IBM</button></a>
       </nav>
     </header>
     <div class="main">
@@ -138,7 +144,23 @@
         </div>
       </div>
     </div>
-    <footer><p>Disclaimer: All stock data is not for investment or trading purposes.</p></footer>
+    <footer>
+      <p>
+        Disclaimer: This web application is for demo purpose only. All stock data could be delayed or inaccurate due to a limitation of the third party API.
+        All financial information on this site is not for investment or trading purposes.
+      </p>
+    </footer>
+    <div class="modal">
+      <div class="modal-content">
+          <h1>About this site</h1>
+          <p>
+            Stock Analyzer is a web application that allows you to analyze selected public stocks. It uses Node.JS as the API to collect and server financial data.
+            On the frontend, it uses jQuery for DOM manipulation and D3.js for data visualization. Price history data is provided by Quandl's API and fundamentals data
+            is provided by Google Finance.
+          </p>
+          <button class="close-btn">Close</button>
+      </div>
+    </div>
   </body>
   <script>
   </script>

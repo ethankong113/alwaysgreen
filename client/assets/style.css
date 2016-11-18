@@ -20,7 +20,7 @@ button:focus {
 }
 button:hover {
   cursor: pointer;
-  background-color: green;
+  background-color: #168c68;
 }
 h1 {
   font-size: inherit;
@@ -34,12 +34,24 @@ h1 {
 .header nav {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 .header nav .ticker-btn {
   border: none;
   font-size: 24px;
   padding: 10px 20px;
   border-radius: 5px;
+  margin: 5px 5px;
+}
+.header .about-btn {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  float: right;
+  border-radius: 50%;
+  font-size: 32px;
+  padding: 5px 14px;
+  border: solid 2px white;
 }
 .banner {
   background-color: #20CE99;
@@ -117,6 +129,10 @@ h1 {
   display: flex;
   justify-content: center;
 }
+.price-section .price-history-wrapper h3 {
+  text-align: center;
+  font-size: 24px;
+}
 .price-section .price-history-wrapper ul {
   display: flex;
   justify-content: space-around;
@@ -124,4 +140,44 @@ h1 {
 .price-section .price-history-wrapper ul .price-history-option {
   font-size: 18px;
   padding: 5px 10px;
+}
+footer {
+  background-color: #20CE99;
+  color: white;
+}
+footer p {
+  padding: 20px 0px;
+  margin: auto;
+  width: 80%;
+}
+.modal {
+  visibility: hidden;
+  width: 100%;
+  position: fixed;
+  top: 160px;
+}
+.modal .modal-content {
+  margin: auto;
+  width: 600px;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 30px;
+  background-color: white;
+}
+.modal .modal-content h1 {
+  text-align: center;
+  font-size: 28px;
+}
+.modal .modal-content p {
+  width: 500px;
+  margin: auto;
+  text-align: justify;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.modal .modal-content button {
+  display: block;
+  margin: auto;
+  font-size: 20px;
+  padding: 6px 14px;
 }
