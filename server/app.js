@@ -14,7 +14,7 @@ app.get('/', (req, res)=> {
 });
 
 app.get('/:ticker/prices', (req, res) => {
-  var ticker = req.params.ticker;
+  var ticker = req.params.ticker.toLowerCase();
   fs.readFile(path.join(__dirname, `../data/${ticker}/prices.json`), 'utf8', (err, data) => {
     if (err) throw err;
     var raw = JSON.parse(data).dataset.data;
