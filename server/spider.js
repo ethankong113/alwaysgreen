@@ -6,6 +6,8 @@ function readCSV(ticker, callback) {
   var pathQ = path.join(__dirname, `../data/${ticker}/dataByQ.csv`);
   var pathY = path.join(__dirname, `../data/${ticker}/dataByY.csv`);
   return (fs.readFile(pathQ, 'utf8', (err, data) => {
+    console.log(err);
+    console.log(data);
     var lines = data.split("\n");
     lines = lines.slice(0,lines.length-1);
     var dates = lines[0].split(',').map((date) => {
