@@ -87,7 +87,7 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	(0, _jquery2.default)(function () {
-	  window.Store = Store;
+	  // window.Store = Store;
 	  var fundamentals = ["sales", "grossprofit", "profitmargin", "ebitda", "netincome", "eps"];
 	  var timeframes = ["year", "quarter"];
 	  Store.update("ticker", "FB");
@@ -163,10 +163,22 @@
 	
 	  (0, _jquery2.default)('.about-btn').click(function (e) {
 	    (0, _jquery2.default)('.modal').css('visibility', 'visible');
+	    (0, _jquery2.default)('body').css('overflow', 'hidden');
 	  });
 	
 	  (0, _jquery2.default)('.close-btn').click(function (e) {
+	    e.stopPropagation();
 	    (0, _jquery2.default)('.modal').css('visibility', 'hidden');
+	    (0, _jquery2.default)('body').css('overflow', 'auto');
+	  });
+	
+	  (0, _jquery2.default)('.modal-frame .modal-content').click(function (e) {
+	    e.stopPropagation();
+	  });
+	
+	  (0, _jquery2.default)('.modal').click(function (e) {
+	    (0, _jquery2.default)('.modal').css('visibility', 'hidden');
+	    (0, _jquery2.default)('body').css('overflow', 'auto');
 	  });
 	});
 	

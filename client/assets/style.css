@@ -153,10 +153,16 @@ footer p {
 .modal {
   visibility: hidden;
   width: 100%;
+  height: 100%;
   position: fixed;
-  top: 160px;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.8);
 }
-.modal .modal-content {
+.modal .modal-frame {
+  width: 100%;
+  margin-top: 100px;
+}
+.modal .modal-frame .modal-content {
   margin: auto;
   width: 600px;
   border: 2px solid black;
@@ -164,18 +170,18 @@ footer p {
   padding: 30px;
   background-color: white;
 }
-.modal .modal-content h1 {
+.modal .modal-frame .modal-content h1 {
   text-align: center;
   font-size: 28px;
 }
-.modal .modal-content p {
+.modal .modal-frame .modal-content p {
   width: 500px;
   margin: auto;
   text-align: justify;
   margin-top: 40px;
   margin-bottom: 40px;
 }
-.modal .modal-content button {
+.modal .modal-frame .modal-content button {
   display: block;
   margin: auto;
   font-size: 20px;
