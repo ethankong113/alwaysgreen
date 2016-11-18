@@ -51,22 +51,77 @@ h1 {
   font-size: 28px;
 }
 .section {
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+.section h3 {
+  text-align: center;
+  font-size: 24px;
+}
+.section .wrapper {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
 }
-.section .graph-frame {
+.section .wrapper .graph-frame {
   text-align: center;
   margin-bottom: 50px;
 }
-.section .graph-frame ul {
+.section .wrapper .graph-frame ul {
   display: flex;
   justify-content: center;
 }
-.section .graph-frame ul button {
+.section .wrapper .graph-frame ul button {
   margin: 0px 10px;
+  font-size: 14px;
+  padding: 5px 10px;
 }
-.price-section .price-history-option {
+.section .wrapper .text-frame p {
+  width: 400px;
+  text-align: justify;
+}
+.section .wrapper-reverse {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+}
+.section .wrapper-reverse .graph-frame {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.section .wrapper-reverse .graph-frame ul {
+  display: flex;
+  justify-content: center;
+}
+.section .wrapper-reverse .graph-frame ul button {
+  margin: 0px 10px;
+  font-size: 14px;
+  padding: 5px 10px;
+}
+.section .wrapper-reverse .text-frame p {
+  width: 400px;
+  text-align: justify;
+}
+.section .section-line {
+  width: 60%;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  border: solid 1px #20CE99;
+  border-radius: 40%;
+  background-color: #20CE99;
+}
+.price-section {
+  display: flex;
+  justify-content: center;
+}
+.price-section .price-history-wrapper ul {
+  display: flex;
+  justify-content: space-around;
+}
+.price-section .price-history-wrapper ul .price-history-option {
   font-size: 18px;
   padding: 5px 10px;
 }

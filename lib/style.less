@@ -61,25 +61,86 @@ h1 {
 }
 
 .section {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  .graph-frame {
+  width: 80%;
+  display: block;
+  margin: auto;
+  h3 {
     text-align: center;
-    margin-bottom: 50px;
-    ul {
-      display: flex;
-      justify-content: center;
-      button {
-        margin: 0px 10px;
+    font-size: 24px;
+  }
+  .wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    .graph-frame {
+      text-align: center;
+      margin-bottom: 50px;
+      ul {
+        display: flex;
+        justify-content: center;
+        button {
+          margin: 0px 10px;
+          font-size: 14px;
+          padding: 5px 10px;
+        }
       }
     }
+    .text-frame {
+      p {
+        width: 400px;
+        text-align: justify;
+      }
+    }
+  }
+
+  .wrapper-reverse {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    .graph-frame {
+      text-align: center;
+      margin-bottom: 50px;
+      ul {
+        display: flex;
+        justify-content: center;
+        button {
+          margin: 0px 10px;
+          font-size: 14px;
+          padding: 5px 10px;
+        }
+      }
+    }
+    .text-frame {
+      p {
+        width: 400px;
+        text-align: justify;
+      }
+    }
+  }
+
+  .section-line {
+    width: 60%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    border: solid 1px @theme-green;
+    border-radius: 40%;
+    background-color: @theme-green;
   }
 }
 
 .price-section {
-  .price-history-option {
-    font-size: 18px;
-    padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  .price-history-wrapper {
+    ul {
+      display: flex;
+      justify-content: space-around;
+      .price-history-option {
+        font-size: 18px;
+        padding: 5px 10px;
+      }
+    }
   }
 }
