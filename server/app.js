@@ -35,5 +35,5 @@ app.get('/:ticker/fundamentals', (req, res) => {
 });
 
 app.listen(port, ()=>{
-  console.log("Listening.");
+  console.log("Listening on port " + port);
 });

@@ -80,46 +80,47 @@
 	
 	var _text_block = __webpack_require__(13);
 	
+	var _modal = __webpack_require__(14);
+	
+	var _modal2 = _interopRequireDefault(_modal);
+	
+	var _dynamic_header = __webpack_require__(15);
+	
+	var _dynamic_header2 = _interopRequireDefault(_dynamic_header);
+	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var Store = (0, _store2.default)();
 	
 	(0, _jquery2.default)(function () {
 	  // window.Store = Store;
-	  (0, _jquery2.default)(window).on('scroll', function (e) {
-	    var posY = window.scrollY;
-	    var target = (0, _jquery2.default)('.main')[0].offsetTop;
-	    var margin = (0, _jquery2.default)('.header h1').height();
-	    var top = parseInt((0, _jquery2.default)('.header h1').css('margin-top').split("p")[0]);
-	    if (posY + margin + 90 > target && top > -50) {
-	      (0, _jquery2.default)('.header h1').css('margin-top', top - 10 + 'px');
-	    } else if (posY + margin + 90 < target) {
-	      (0, _jquery2.default)('.header h1').css('margin-top', '20px');
-	    }
-	  });
+	  (0, _modal2.default)();
+	  (0, _dynamic_header2.default)();
+	
 	  var fundamentals = ["sales", "grossprofit", "profitmargin", "ebitda", "netincome", "eps"];
 	  var timeframes = ["year", "quarter"];
-	  Store.update("ticker", "FB");
-	  Store.update("company", "Facebook");
-	  (0, _api.fetchPriceHistory)('FB', drawPriceHistory(20), errorCB);
-	  (0, _api.fetchFundamentals)('FB', function (data) {
-	    drawFundamentals('Q', function () {
-	      (0, _master_reducer2.default)(Store);
-	    })(data);
-	    (0, _jquery2.default)('.sales-text').text((0, _text_block.salesText)(Store.read("company"), Store.read("ticker"), Store.read("salesByQ"), Store.read("salesByY")));
-	    (0, _jquery2.default)('.grossprofit-text').text((0, _text_block.grossprofitText)(Store.read("company"), Store.read("ticker"), Store.read("grossprofitByQ"), Store.read("grossprofitByY")));
-	    (0, _jquery2.default)('.profitmargin-text').text((0, _text_block.profitmarginText)(Store.read("company"), Store.read("ticker"), Store.read("profitmarginByQ"), Store.read("profitmarginByY")));
-	    (0, _jquery2.default)('.netincome-text').text((0, _text_block.netincomeText)(Store.read("company"), Store.read("ticker"), Store.read("netincomeByQ"), Store.read("netincomeByY")));
-	    (0, _jquery2.default)('.ebitda-text').text((0, _text_block.ebitdaText)(Store.read("company"), Store.read("ticker"), Store.read("ebitdaByQ"), Store.read("ebitdaByY")));
-	    (0, _jquery2.default)('.eps-text').text((0, _text_block.epsText)(Store.read("company"), Store.read("ticker"), Store.read("epsByQ"), Store.read("epsByY")));
-	  }, errorCB);
+	
+	  (function defaultTicker(ticker, name) {
+	    Store.update("ticker", ticker);
+	    Store.update("company", name);
+	    (0, _api.fetchPriceHistory)('FB', drawPriceHistory(20), errorCB);
+	    (0, _api.fetchFundamentals)('FB', function (data) {
+	      drawFundamentals('Q', function () {
+	        (0, _master_reducer2.default)(Store);
+	      })(data);
+	      (0, _text_block.generateText)(Store);
+	    }, errorCB);
+	    (0, _jquery2.default)('#fb-btn').addClass('btn-active');
+	  })("FB", "Facebook");
 	
 	  (0, _jquery2.default)('.ticker-btn').click(function (e) {
+	    (0, _jquery2.default)('.ticker-btn').removeClass('btn-active');
+	    (0, _jquery2.default)(e.target).addClass('btn-active');
 	    var ticker = (0, _jquery2.default)(e.target).data('ticker');
-	    var savedTicker = Store.read("ticker");
-	    if (!savedTicker || savedTicker != ticker) {
+	    var savedTicker = Store.read('ticker');
+	    if (!savedTicker || savedTicker !== ticker) {
 	      Store.emptyStore();
 	      savedTicker = Store.update("ticker", ticker);
 	      Store.update("company", (0, _jquery2.default)(e.target)[0].innerText);
@@ -128,12 +129,7 @@
 	        drawFundamentals('Q', function () {
 	          (0, _master_reducer2.default)(Store);
 	        })(data);
-	        (0, _jquery2.default)('.sales-text').text((0, _text_block.salesText)(Store.read("company"), Store.read("ticker"), Store.read("salesByQ"), Store.read("salesByY")));
-	        (0, _jquery2.default)('.grossprofit-text').text((0, _text_block.grossprofitText)(Store.read("company"), Store.read("ticker"), Store.read("grossprofitByQ"), Store.read("grossprofitByY")));
-	        (0, _jquery2.default)('.profitmargin-text').text((0, _text_block.profitmarginText)(Store.read("company"), Store.read("ticker"), Store.read("profitmarginByQ"), Store.read("profitmarginByY")));
-	        (0, _jquery2.default)('.netincome-text').text((0, _text_block.netincomeText)(Store.read("company"), Store.read("ticker"), Store.read("netincomeByQ"), Store.read("netincomeByY")));
-	        (0, _jquery2.default)('.ebitda-text').text((0, _text_block.ebitdaText)(Store.read("company"), Store.read("ticker"), Store.read("ebitdaByQ"), Store.read("ebitdaByY")));
-	        (0, _jquery2.default)('.eps-text').text((0, _text_block.epsText)(Store.read("company"), Store.read("ticker"), Store.read("epsByQ"), Store.read("epsByY")));
+	        (0, _text_block.generateText)(Store);
 	      }, errorCB);
 	    }
 	  });
@@ -146,24 +142,26 @@
 	    timeframes.forEach(function (t) {
 	      (0, _jquery2.default)('.' + f + '-option-' + t).click(function (e) {
 	        var period = t === "year" ? "Y" : "Q";
+	        var read = Store.read;
+	
 	        switch (f) {
 	          case "sales":
-	            (0, _fundamentals_reducer.drawSales)(Store.read(f + 'By' + period), period);
+	            (0, _fundamentals_reducer.drawSales)(read(f + 'By' + period), period);
 	            break;
 	          case "grossprofit":
-	            (0, _fundamentals_reducer.drawGrossprofit)(Store.read(f + 'By' + period), period);
+	            (0, _fundamentals_reducer.drawGrossprofit)(read(f + 'By' + period), period);
 	            break;
 	          case "profitmargin":
-	            (0, _fundamentals_reducer.drawProfitmargin)(Store.read(f + 'By' + period), period);
+	            (0, _fundamentals_reducer.drawProfitmargin)(read(f + 'By' + period), period);
 	            break;
 	          case "ebitda":
-	            (0, _fundamentals_reducer.drawEbitda)(Store.read(f + 'By' + period), period);
+	            (0, _fundamentals_reducer.drawEbitda)(read(f + 'By' + period), period);
 	            break;
 	          case "netincome":
-	            (0, _fundamentals_reducer.drawNetincome)(Store.read(f + 'By' + period), period);
+	            (0, _fundamentals_reducer.drawNetincome)(read(f + 'By' + period), period);
 	            break;
 	          case "eps":
-	            (0, _fundamentals_reducer.drawEPS)(Store.read(f + 'By' + period), period);
+	            (0, _fundamentals_reducer.drawEPS)(read(f + 'By' + period), period);
 	            break;
 	          default:
 	            break;
@@ -171,43 +169,29 @@
 	      });
 	    });
 	  });
-	
-	  (0, _jquery2.default)('.about-btn').click(function (e) {
-	    (0, _jquery2.default)('.modal').css('visibility', 'visible');
-	    (0, _jquery2.default)('body').css('overflow', 'hidden');
-	  });
-	
-	  (0, _jquery2.default)('.close-btn').click(function (e) {
-	    e.stopPropagation();
-	    (0, _jquery2.default)('.modal').css('visibility', 'hidden');
-	    (0, _jquery2.default)('body').css('overflow', 'auto');
-	  });
-	
-	  (0, _jquery2.default)('.modal-frame .modal-content').click(function (e) {
-	    e.stopPropagation();
-	  });
-	
-	  (0, _jquery2.default)('.modal').click(function (e) {
-	    (0, _jquery2.default)('.modal').css('visibility', 'hidden');
-	    (0, _jquery2.default)('body').css('overflow', 'auto');
-	  });
 	});
 	
 	function drawPriceHistory(dateCount) {
-	  return function () {
-	    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Store.read("priceHistory");
+	  var update = Store.update,
+	      read = Store.read;
 	
-	    Store.update("priceHistory", data);
-	    new _price_history2.default(Store.read("priceHistory"), dateCount);
+	  return function () {
+	    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : read("priceHistory");
+	
+	    update("priceHistory", data);
+	    new _price_history2.default(read("priceHistory"), dateCount);
 	  };
 	}
 	
 	function drawSalesByQ(timeframe) {
-	  return function () {
-	    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Store.read("salesByQ");
+	  var update = Store.update,
+	      read = Store.read;
 	
-	    Store.update("salesByQ", data);
-	    new _price_history2.default(Store.read("salesByQ"), timeframe);
+	  return function () {
+	    var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : read("salesByQ");
+	
+	    update("salesByQ", data);
+	    new _price_history2.default(read("salesByQ"), timeframe);
 	  };
 	}
 	
@@ -224,12 +208,6 @@
 	function errorCB(err) {
 	  console.log(err);
 	}
-	
-	var Store = (0, _store2.default)();
-	
-	var SalesHistory = function SalesHistory() {
-	  _classCallCheck(this, SalesHistory);
-	};
 
 /***/ },
 /* 1 */
@@ -26875,16 +26853,23 @@
 	
 	var formatNumber = exports.formatNumber = function formatNumber(num) {
 	  if (num < 10) return num;
-	  var str = num.toString();
-	  str = str.split("").reverse();
-	  var newStr = [];
-	  str.forEach(function (chr, i) {
-	    if (i !== 0 && i % 3 === 0) {
-	      newStr.push(",");
+	  var numberString = num.toString().split(".");
+	  var output = numberString[0],
+	      decimal = numberString[1],
+	      count = 0;
+	  output = output.split("");
+	  for (var idx = output.length - 1; idx >= 0; idx--) {
+	    if (count === 3) {
+	      output[idx] = output[idx] + ",";
+	      count = 0;
 	    }
-	    newStr.push(chr);
-	  });
-	  return newStr.reverse().join("");
+	    count++;
+	  }
+	  output = output.join("");
+	  if (decimal) {
+	    output = output + "." + decimal;
+	  }
+	  return output;
 	};
 
 /***/ },
@@ -44479,141 +44464,210 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.epsText = exports.netincomeText = exports.ebitdaText = exports.profitmarginText = exports.grossprofitText = exports.salesText = undefined;
+	exports.generateText = exports.epsText = exports.netincomeText = exports.ebitdaText = exports.profitmarginText = exports.grossprofitText = exports.salesText = undefined;
 	
 	var _helpers = __webpack_require__(3);
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	var salesText = exports.salesText = function salesText(company, ticker, dataByQ, dataByY) {
-	  var startingQtValue = dataByQ[dataByQ.length - 1].value;
-	  var endingQtValue = dataByQ[0].value;
-	  var startingQt = dataByQ[dataByQ.length - 1].date;
-	  var endingQt = dataByQ[0].date;
-	  var totalIncreaseByQ = endingQtValue - startingQtValue;
-	  var trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease";
-	  var percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
+	  var startingQtValue = dataByQ[dataByQ.length - 1].value,
+	      endingQtValue = dataByQ[0].value,
+	      startingQt = dataByQ[dataByQ.length - 1].date,
+	      endingQt = dataByQ[0].date,
+	      totalIncreaseByQ = endingQtValue - startingQtValue,
+	      trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease",
+	      percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
 	
-	  var startingYearValue = dataByY[dataByY.length - 1].value;
-	  var endingYearValue = dataByY[0].value;
-	  var startingYear = dataByY[dataByY.length - 1].date;
-	  var endingYear = dataByY[0].date;
-	  var totalIncreaseByY = endingYearValue - startingYearValue;
-	  var trendByY = totalIncreaseByY > 0 ? "increase" : "decrease";
-	  var percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100);
-	  var cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
+	  var startingYearValue = dataByY[dataByY.length - 1].value,
+	      endingYearValue = dataByY[0].value,
+	      startingYear = dataByY[dataByY.length - 1].date,
+	      endingYear = dataByY[0].date,
+	      totalIncreaseByY = endingYearValue - startingYearValue,
+	      trendByY = totalIncreaseByY > 0 ? "increase" : "decrease",
+	      percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100),
+	      cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
 	
 	  return company + "'s quarterly sales has been " + trendByQ.slice(0, trendByQ.length - 1) + "ing over the past " + dataByQ.length + " quarters,\n    with a sales of $" + (0, _helpers.formatNumber)(endingQtValue) + "M for the quarter ending on " + endingQt + ".\n    " + company + "'s yearly sales has been " + trendByY.slice(0, trendByY.length - 1) + "ing over the past " + dataByY.length + " years,\n    for a total of $" + (0, _helpers.formatNumber)(totalIncreaseByY) + "M. The % rise over 4 years is " + percentIncreaseByY + "% and the CAGR is " + cagr + "%.";
 	};
 	
 	var grossprofitText = exports.grossprofitText = function grossprofitText(company, ticker, dataByQ, dataByY) {
-	  var startingQtValue = dataByQ[dataByQ.length - 1].value;
-	  var endingQtValue = dataByQ[0].value;
-	  var startingQt = dataByQ[dataByQ.length - 1].date;
-	  var endingQt = dataByQ[0].date;
-	  var totalIncreaseByQ = endingQtValue - startingQtValue;
-	  var trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease";
-	  var percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
+	  var startingQtValue = dataByQ[dataByQ.length - 1].value,
+	      endingQtValue = dataByQ[0].value,
+	      startingQt = dataByQ[dataByQ.length - 1].date,
+	      endingQt = dataByQ[0].date,
+	      totalIncreaseByQ = endingQtValue - startingQtValue,
+	      trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease",
+	      percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
 	
-	  var startingYearValue = dataByY[dataByY.length - 1].value;
-	  var endingYearValue = dataByY[0].value;
-	  var startingYear = dataByY[dataByY.length - 1].date;
-	  var endingYear = dataByY[0].date;
-	  var totalIncreaseByY = endingYearValue - startingYearValue;
-	  var trendByY = totalIncreaseByY > 0 ? "increase" : "decrease";
-	  var percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100);
-	  var cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
+	  var startingYearValue = dataByY[dataByY.length - 1].value,
+	      endingYearValue = dataByY[0].value,
+	      startingYear = dataByY[dataByY.length - 1].date,
+	      endingYear = dataByY[0].date,
+	      totalIncreaseByY = endingYearValue - startingYearValue,
+	      trendByY = totalIncreaseByY > 0 ? "increase" : "decrease",
+	      percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100),
+	      cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
 	
 	  return company + "'s quarterly gross profit has been " + trendByQ.slice(0, trendByQ.length - 1) + "ing over the past " + dataByQ.length + " quarters,\n    with a gross profit of $" + (0, _helpers.formatNumber)(endingQtValue) + "M for the quarter ending on " + endingQt + ".\n    \n\n" + company + "'s yearly gross profit has been " + trendByY.slice(0, trendByY.length - 1) + "ing over the past " + dataByY.length + " years,\n    for a total of $" + (0, _helpers.formatNumber)(totalIncreaseByY) + "M. The % rise over 4 years is " + percentIncreaseByY + "% and the CAGR is " + cagr + "%.";
 	};
 	
 	var profitmarginText = exports.profitmarginText = function profitmarginText(company, ticker, dataByQ, dataByY) {
-	  var startingQtValue = dataByQ[dataByQ.length - 1].value;
-	  var endingQtValue = dataByQ[0].value;
-	  var startingYearValue = dataByY[dataByY.length - 1].value;
-	  var endingYearValue = dataByY[0].value;
-	  var startingYear = dataByY[dataByY.length - 1].date;
-	  var endingYear = dataByY[0].date;
-	  var totalIncreaseByY = endingYearValue - startingYearValue;
-	  var trendByY = totalIncreaseByY > 0 ? "increase" : "decrease";
-	  var rateByY = Math.abs(totalIncreaseByY) > 0.1 ? "significant" : "mild";
-	  var avgByQ = dataByQ.reduce(function (p, c) {
+	  var startingQtValue = dataByQ[dataByQ.length - 1].value,
+	      endingQtValue = dataByQ[0].value,
+	      startingYearValue = dataByY[dataByY.length - 1].value,
+	      endingYearValue = dataByY[0].value,
+	      startingYear = dataByY[dataByY.length - 1].date,
+	      endingYear = dataByY[0].date,
+	      totalIncreaseByY = endingYearValue - startingYearValue,
+	      trendByY = totalIncreaseByY > 0 ? "increase" : "decrease",
+	      rateByY = Math.abs(totalIncreaseByY) > 0.1 ? "significant" : "mild",
+	      avgByQ = dataByQ.reduce(function (p, c) {
 	    return p + c.value;
-	  }, 0) / dataByQ.length;
-	  var isStable = avgByQ * 1.2 > Math.max.apply(Math, _toConsumableArray((0, _helpers.getValues)(dataByQ))) && avgByQ * 0.8 < Math.min.apply(Math, _toConsumableArray((0, _helpers.getValues)(dataByQ)));
+	  }, 0) / dataByQ.length,
+	      isStable = avgByQ * 1.2 > Math.max.apply(Math, _toConsumableArray((0, _helpers.getValues)(dataByQ))) && avgByQ * 0.8 < Math.min.apply(Math, _toConsumableArray((0, _helpers.getValues)(dataByQ)));
 	  return company + "'s profit margin has " + trendByY + "d from " + startingYearValue * 100 + "% in " + startingYear + " to\n    " + endingYearValue * 100 + "% in " + endingYear + ". The " + trendByY + " in profit margin is " + rateByY + ".\n    The profit margin has been " + (isStable ? "stable" : "fluctuating") + " for the past " + dataByQ.length + " quarters.";
 	};
 	
 	var ebitdaText = exports.ebitdaText = function ebitdaText(company, ticker, dataByQ, dataByY) {
-	  var startingQtValue = dataByQ[dataByQ.length - 1].value;
-	  var endingQtValue = dataByQ[0].value;
-	  var startingQt = dataByQ[dataByQ.length - 1].date;
-	  var endingQt = dataByQ[0].date;
-	  var totalIncreaseByQ = endingQtValue - startingQtValue;
-	  var trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease";
-	  var percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
+	  var startingQtValue = dataByQ[dataByQ.length - 1].value,
+	      endingQtValue = dataByQ[0].value,
+	      startingQt = dataByQ[dataByQ.length - 1].date,
+	      endingQt = dataByQ[0].date,
+	      totalIncreaseByQ = endingQtValue - startingQtValue,
+	      trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease",
+	      percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
 	
-	  var startingYearValue = dataByY[dataByY.length - 1].value;
-	  var endingYearValue = dataByY[0].value;
-	  var startingYear = dataByY[dataByY.length - 1].date;
-	  var endingYear = dataByY[0].date;
-	  var totalIncreaseByY = endingYearValue - startingYearValue;
-	  var trendByY = totalIncreaseByY > 0 ? "increase" : "decrease";
-	  var percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100);
-	  var cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
+	  var startingYearValue = dataByY[dataByY.length - 1].value,
+	      endingYearValue = dataByY[0].value,
+	      startingYear = dataByY[dataByY.length - 1].date,
+	      endingYear = dataByY[0].date,
+	      totalIncreaseByY = endingYearValue - startingYearValue,
+	      trendByY = totalIncreaseByY > 0 ? "increase" : "decrease",
+	      percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100),
+	      cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
 	
 	  return company + "'s quarterly EBITDA (Earnings Before Interest, Tax, Depreciation, and Amortization) has been " + trendByQ.slice(0, trendByQ.length - 1) + "ing over the past " + dataByQ.length + " quarters,\n    with a EBITDA of $" + (0, _helpers.formatNumber)(endingQtValue) + "M for the quarter ending on " + endingQt + ".\n    \n\n" + company + "'s yearly EBITDA has been " + trendByY.slice(0, trendByY.length - 1) + "ing over the past " + dataByY.length + " years,\n    for a total of $" + (0, _helpers.formatNumber)(totalIncreaseByY) + "M. The % rise over 4 years is " + percentIncreaseByY + "% and the CAGR is " + cagr + "%.";
 	};
 	
 	var netincomeText = exports.netincomeText = function netincomeText(company, ticker, dataByQ, dataByY) {
-	  var startingQtValue = dataByQ[dataByQ.length - 1].value;
-	  var endingQtValue = dataByQ[0].value;
-	  var startingQt = dataByQ[dataByQ.length - 1].date;
-	  var endingQt = dataByQ[0].date;
-	  var totalIncreaseByQ = endingQtValue - startingQtValue;
-	  var trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease";
-	  var percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
+	  var startingQtValue = dataByQ[dataByQ.length - 1].value,
+	      endingQtValue = dataByQ[0].value,
+	      startingQt = dataByQ[dataByQ.length - 1].date,
+	      endingQt = dataByQ[0].date,
+	      totalIncreaseByQ = endingQtValue - startingQtValue,
+	      trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease",
+	      percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
 	
-	  var startingYearValue = dataByY[dataByY.length - 1].value;
-	  var endingYearValue = dataByY[0].value;
-	  var startingYear = dataByY[dataByY.length - 1].date;
-	  var endingYear = dataByY[0].date;
-	  var totalIncreaseByY = endingYearValue - startingYearValue;
-	  var trendByY = totalIncreaseByY > 0 ? "increase" : "decrease";
-	  var percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100);
-	  var cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
+	  var startingYearValue = dataByY[dataByY.length - 1].value,
+	      endingYearValue = dataByY[0].value,
+	      startingYear = dataByY[dataByY.length - 1].date,
+	      endingYear = dataByY[0].date,
+	      totalIncreaseByY = endingYearValue - startingYearValue,
+	      trendByY = totalIncreaseByY > 0 ? "increase" : "decrease",
+	      percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100),
+	      cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
 	
 	  return company + "'s quarterly net income has been " + trendByQ.slice(0, trendByQ.length - 1) + "ing over the past " + dataByQ.length + " quarters,\n    with a net income of $" + (0, _helpers.formatNumber)(endingQtValue) + "M for the quarter ending on " + endingQt + ".\n     " + company + "'s yearly net income has been " + trendByY.slice(0, trendByY.length - 1) + "ing over the past " + dataByY.length + " years,\n    for a total of $" + (0, _helpers.formatNumber)(totalIncreaseByY) + "M. The % rise over 4 years is " + percentIncreaseByY + "% and the CAGR is " + cagr + "%.";
 	};
 	
 	var epsText = exports.epsText = function epsText(company, ticker, dataByQ, dataByY) {
-	  var startingQtValue = dataByQ[dataByQ.length - 1].value;
-	  var endingQtValue = dataByQ[0].value;
-	  var startingQt = dataByQ[dataByQ.length - 1].date;
-	  var endingQt = dataByQ[0].date;
-	  var totalIncreaseByQ = endingQtValue - startingQtValue;
-	  var trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease";
-	  var percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
+	  var startingQtValue = dataByQ[dataByQ.length - 1].value,
+	      endingQtValue = dataByQ[0].value,
+	      startingQt = dataByQ[dataByQ.length - 1].date,
+	      endingQt = dataByQ[0].date,
+	      totalIncreaseByQ = endingQtValue - startingQtValue,
+	      trendByQ = totalIncreaseByQ > 0 ? "increase" : "decrease",
+	      percentIncreaseByQ = Math.round((endingQtValue / startingQtValue - 1) * 100);
 	
-	  var startingYearValue = dataByY[dataByY.length - 1].value;
-	  var endingYearValue = dataByY[0].value;
-	  var startingYear = dataByY[dataByY.length - 1].date;
-	  var endingYear = dataByY[0].date;
-	  var totalIncreaseByY = endingYearValue - startingYearValue;
-	  var trendByY = totalIncreaseByY > 0 ? "increase" : "decrease";
-	  var percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100);
-	  var cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100);
-	  var isEpsPositive = endingQtValue > 0 ? true : false;
-	  var rateByY = Math.abs(totalIncreaseByY) > 0.1 ? "significant" : "mild";
-	  var avgByQ = dataByQ.reduce(function (p, c) {
+	  var startingYearValue = dataByY[dataByY.length - 1].value,
+	      endingYearValue = dataByY[0].value,
+	      startingYear = dataByY[dataByY.length - 1].date,
+	      endingYear = dataByY[0].date,
+	      totalIncreaseByY = endingYearValue - startingYearValue,
+	      trendByY = totalIncreaseByY > 0 ? "increase" : "decrease",
+	      percentIncreaseByY = Math.round((endingYearValue / startingYearValue - 1) * 100),
+	      cagr = Math.round((Math.pow(endingYearValue / startingYearValue, 1 / dataByY.length) - 1) * 100),
+	      isEpsPositive = endingQtValue > 0 ? true : false,
+	      rateByY = Math.abs(totalIncreaseByY) > 0.1 ? "significant" : "mild",
+	      avgByQ = dataByQ.reduce(function (p, c) {
 	    return p + c.value;
-	  }, 0) / dataByQ.length;
-	  var max = Math.max.apply(Math, _toConsumableArray((0, _helpers.getValues)(dataByQ)));
-	  var min = Math.min.apply(Math, _toConsumableArray((0, _helpers.getValues)(dataByQ)));
-	  var isStable = avgByQ * 1.2 > max && avgByQ * 0.8 < min;
+	  }, 0) / dataByQ.length,
+	      max = Math.max.apply(Math, _toConsumableArray((0, _helpers.getValues)(dataByQ))),
+	      min = Math.min.apply(Math, _toConsumableArray((0, _helpers.getValues)(dataByQ))),
+	      isStable = avgByQ * 1.2 > max && avgByQ * 0.8 < min;
 	
-	  return company + " is have a " + (isEpsPositive ? "positive" : "negative") + " EPS (Earnings Per Share)\n    for the last quarter " + (0, _helpers.getQuarter)(endingQt) + ". It has " + trendByQ + "d from $" + startingQtValue + " per share in " + (0, _helpers.getQuarter)(startingQt) + "\n    to $" + endingQtValue + " per share in " + (0, _helpers.getQuarter)(endingQt) + ", representing a " + (trendByQ === "increase" ? "rise" : "fall") + "\n    of " + percentIncreaseByQ + "%.\n    " + ticker + "'s EPS has been " + (isStable ? "stable" : trendByQ === "increase" ? "increasing significantly" : "fluctuating") + " with a minimum of\n    $" + min + " and a maximum of $" + max + ".";
+	  return company + " is have a " + (isEpsPositive ? "positive" : "negative") + " EPS (Earnings Per Share)\n    for the last quarter " + (0, _helpers.getQuarter)(endingQt) + ". It has " + trendByQ + "d from $" + startingQtValue + " per share in " + (0, _helpers.getQuarter)(startingQt) + "\n    to $" + endingQtValue + " per share in " + (0, _helpers.getQuarter)(endingQt) + ", representing a " + (trendByQ === "increase" ? "rise" : "fall") + "\n    of " + percentIncreaseByQ + "%.\n    " + ticker.toUpperCase() + "'s EPS has been " + (isStable ? "stable" : trendByQ === "increase" ? "increasing significantly" : "fluctuating") + " with a minimum of\n    $" + min + " and a maximum of $" + max + ".";
 	};
+	
+	var generateText = exports.generateText = function generateText(_ref) {
+	  var read = _ref.read;
+	
+	  $('.sales-text').text(salesText(read('company'), read('ticker'), read("salesByQ"), read("salesByY")));
+	  $('.grossprofit-text').text(grossprofitText(read('company'), read('ticker'), read("grossprofitByQ"), read("grossprofitByY")));
+	  $('.profitmargin-text').text(profitmarginText(read('company'), read('ticker'), read("profitmarginByQ"), read("profitmarginByY")));
+	  $('.netincome-text').text(netincomeText(read('company'), read('ticker'), read("netincomeByQ"), read("netincomeByY")));
+	  $('.ebitda-text').text(ebitdaText(read('company'), read('ticker'), read("ebitdaByQ"), read("ebitdaByY")));
+	  $('.eps-text').text(epsText(read('company'), read('ticker'), read("epsByQ"), read("epsByY")));
+	};
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var createModal = function createModal() {
+	  $('.about-btn').click(function (e) {
+	    $('.modal').css('visibility', 'visible');
+	    $('body').css('overflow', 'hidden');
+	  });
+	
+	  $('.close-btn').click(function (e) {
+	    e.stopPropagation();
+	    $('.modal').css('visibility', 'hidden');
+	    $('body').css('overflow', 'auto');
+	  });
+	
+	  $('.modal-frame .modal-content').click(function (e) {
+	    e.stopPropagation();
+	  });
+	
+	  $('.modal').click(function (e) {
+	    $('.modal').css('visibility', 'hidden');
+	    $('body').css('overflow', 'auto');
+	  });
+	};
+	
+	exports.default = createModal;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var dynamicHeader = function dynamicHeader() {
+	  $(window).on('scroll', function (e) {
+	    var posY = window.scrollY;
+	    var target = $('.main')[0].offsetTop;
+	    var margin = $('.header h1').height();
+	    var top = parseInt($('.header h1').css('margin-top').split("p")[0]);
+	    if (posY + margin + 90 > target && top > -50) {
+	      $('.header h1').css('margin-top', top - 10 + 'px');
+	    } else if (posY + margin + 90 < target) {
+	      $('.header h1').css('margin-top', '20px');
+	    }
+	  });
+	};
+	
+	exports.default = dynamicHeader;
 
 /***/ }
 /******/ ]);

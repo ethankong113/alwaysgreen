@@ -9,6 +9,13 @@ ul {
   margin: 0;
   padding: 0;
 }
+a {
+  text-decoration: none;
+  color: #20CE99;
+}
+a:hover {
+  cursor: pointer;
+}
 button {
   background-color: #20CE99;
   color: white;
@@ -21,6 +28,11 @@ button:focus {
 button:hover {
   cursor: pointer;
   background-color: #168c68;
+}
+button.btn-active {
+  background-color: #E3E3E3;
+  color: #20CE99;
+  cursor: default;
 }
 h1 {
   font-size: inherit;
