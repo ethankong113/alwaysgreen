@@ -87,7 +87,18 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	(0, _jquery2.default)(function () {
-	  window.Store = Store;
+	  // window.Store = Store;
+	  (0, _jquery2.default)(window).on('scroll', function (e) {
+	    var posY = window.scrollY;
+	    var target = (0, _jquery2.default)('.main')[0].offsetTop;
+	    var margin = (0, _jquery2.default)('.header h1').height();
+	    var top = parseInt((0, _jquery2.default)('.header h1').css('margin-top').split("p")[0]);
+	    if (posY + margin + 90 > target && top > -50) {
+	      (0, _jquery2.default)('.header h1').css('margin-top', top - 10 + 'px');
+	    } else if (posY + margin + 90 < target) {
+	      (0, _jquery2.default)('.header h1').css('margin-top', '20px');
+	    }
+	  });
 	  var fundamentals = ["sales", "grossprofit", "profitmargin", "ebitda", "netincome", "eps"];
 	  var timeframes = ["year", "quarter"];
 	  Store.update("ticker", "FB");
@@ -163,10 +174,22 @@
 	
 	  (0, _jquery2.default)('.about-btn').click(function (e) {
 	    (0, _jquery2.default)('.modal').css('visibility', 'visible');
+	    (0, _jquery2.default)('body').css('overflow', 'hidden');
 	  });
 	
 	  (0, _jquery2.default)('.close-btn').click(function (e) {
+	    e.stopPropagation();
 	    (0, _jquery2.default)('.modal').css('visibility', 'hidden');
+	    (0, _jquery2.default)('body').css('overflow', 'auto');
+	  });
+	
+	  (0, _jquery2.default)('.modal-frame .modal-content').click(function (e) {
+	    e.stopPropagation();
+	  });
+	
+	  (0, _jquery2.default)('.modal').click(function (e) {
+	    (0, _jquery2.default)('.modal').css('visibility', 'hidden');
+	    (0, _jquery2.default)('body').css('overflow', 'auto');
 	  });
 	});
 	
