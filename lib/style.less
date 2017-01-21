@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @theme-green: #20CE99;
+@theme-silver: #E3E3E3;
 
 html, body {
   margin: 0;
@@ -10,6 +11,14 @@ html, body {
 ul {
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: @theme-green;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 button {
@@ -24,6 +33,12 @@ button {
     cursor: pointer;
     background-color: darken(@theme-green, 15%);
   }
+}
+
+button.btn-active {
+  background-color: @theme-silver;
+  color: @theme-green;
+  cursor: default;
 }
 
 h1 {
