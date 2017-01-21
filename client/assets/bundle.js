@@ -88,6 +88,17 @@
 	
 	(0, _jquery2.default)(function () {
 	  // window.Store = Store;
+	  (0, _jquery2.default)(window).on('scroll', function (e) {
+	    var posY = window.scrollY;
+	    var target = (0, _jquery2.default)('.main')[0].offsetTop;
+	    var margin = (0, _jquery2.default)('.header h1').height();
+	    var top = parseInt((0, _jquery2.default)('.header h1').css('margin-top').split("p")[0]);
+	    if (posY + margin + 90 > target && top > -50) {
+	      (0, _jquery2.default)('.header h1').css('margin-top', top - 10 + 'px');
+	    } else if (posY + margin + 90 < target) {
+	      (0, _jquery2.default)('.header h1').css('margin-top', '20px');
+	    }
+	  });
 	  var fundamentals = ["sales", "grossprofit", "profitmargin", "ebitda", "netincome", "eps"];
 	  var timeframes = ["year", "quarter"];
 	  Store.update("ticker", "FB");
